@@ -1,0 +1,123 @@
+{
+  "items": "4",
+  "sentiment_score_definition": "x <= -0.35: Bearish; -0.35 < x <= -0.15: Somewhat-Bearish; -0.15 < x < 0.15: Neutral; 0.15 <= x < 0.35: Somewhat-Bullish; x >= 0.35: Bullish",
+  "relevance_score_definition": "0 < x <= 1, with a higher score indicating higher relevance.",
+  "feed": [
+    {
+      "title": "Weekly software sector wrap mentions the company in a list",
+      "url": "https://www.example.com/relevance-sector-wrap",
+      "time_published": "20260907T090000",
+      "authors": [
+        "Wire Desk"
+      ],
+      "summary": "A roundup of software names. The company appears once in a table of peers, with no company specific development reported.",
+      "banner_image": "https://www.example.com/img/wrap.png",
+      "source": "Example Newswire",
+      "category_within_source": "n/a",
+      "source_domain": "www.example.com",
+      "topics": [
+        {
+          "topic": "Technology",
+          "relevance_score": "0.29"
+        }
+      ],
+      "overall_sentiment_score": 0.031,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "RELEVANCE",
+          "relevance_score": "0.112",
+          "ticker_sentiment_score": "0.044",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Apple supplier commentary moves the semiconductor complex",
+      "url": "https://www.example.com/relevance-unscored",
+      "time_published": "20260907T080000",
+      "authors": [
+        "Chip Desk"
+      ],
+      "summary": "An article scored only for other tickers. It carries no relevance score for the ticker it was returned alongside.",
+      "banner_image": "https://www.example.com/img/unscored.png",
+      "source": "Market Example",
+      "category_within_source": "n/a",
+      "source_domain": "www.marketexample.com",
+      "topics": [
+        {
+          "topic": "Technology",
+          "relevance_score": "0.66"
+        }
+      ],
+      "overall_sentiment_score": 0.187,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "AAPL",
+          "relevance_score": "0.903",
+          "ticker_sentiment_score": "0.240",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Analysts revisit price targets after the guidance update",
+      "url": "https://www.example.com/relevance-targets",
+      "time_published": "20260907T070000",
+      "authors": [
+        "Ari Desk"
+      ],
+      "summary": "Several brokerages revisited their price targets following the update, citing the raised outlook rather than a one-off item.",
+      "banner_image": "https://www.example.com/img/targets.png",
+      "source": "Finance Example",
+      "category_within_source": "n/a",
+      "source_domain": "www.financeexample.com",
+      "topics": [
+        {
+          "topic": "Financial Markets",
+          "relevance_score": "0.58"
+        }
+      ],
+      "overall_sentiment_score": 0.264,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "RELEVANCE",
+          "relevance_score": "0.512",
+          "ticker_sentiment_score": "0.287",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Company beats quarterly estimates and raises full-year guidance",
+      "url": "https://www.example.com/relevance-earnings",
+      "time_published": "20260907T060000",
+      "authors": [
+        "Jane Reporter"
+      ],
+      "summary": "Quarterly revenue came in above consensus and management lifted full-year guidance on accelerating growth. The oldest article in this window and the most relevant one.",
+      "banner_image": "https://www.example.com/img/earnings.png",
+      "source": "Example Newswire",
+      "category_within_source": "n/a",
+      "source_domain": "www.example.com",
+      "topics": [
+        {
+          "topic": "Earnings",
+          "relevance_score": "0.93"
+        }
+      ],
+      "overall_sentiment_score": 0.421,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "RELEVANCE",
+          "relevance_score": "0.964",
+          "ticker_sentiment_score": "0.455",
+          "ticker_sentiment_label": "Bullish"
+        }
+      ]
+    }
+  ]
+}

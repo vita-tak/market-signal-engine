@@ -91,3 +91,33 @@ def test_malformed_news_fixture_is_rejected(source: FixtureSource) -> None:
 
     assert "url" in str(excinfo.value)
     assert "time_published" in str(excinfo.value)
+
+
+def test_relevance_fixture_is_returned_most_relevant_first(
+    source: FixtureSource,
+) -> None:
+    """The saved feed is newest first. The parser must reorder it."""
+    articles = fetch_news("RELEVANCE", source=source, since=SINCE, limit=10)
+
+    assert [article.relevance_score for article in articles] == [
+        0.964,
+        0.512,
+        0.112,
+        0.0,
+    ]
+    # The article with no score for this ticker ranks last, not first.
+    assert articles[-1].url == "https://www.example.com/relevance-unscored"
+    # The saved order was by time, so this proves the sort actually ran.
+    published = [article.published_at for article in articles]
+    assert published != sorted(published, reverse=True)
+
+
+@pytest.mark.parametrize("ticker", config.WATCHLIST)
+def test_every_watchlist_fixture_arrives_ordered_by_relevance(
+    source: FixtureSource, ticker: str
+) -> None:
+    """Catches a fixture drifting out of the order a run would see."""
+    articles = fetch_news(ticker, source=source, since=SINCE, limit=10)
+
+    scores = [article.relevance_score for article in articles]
+    assert scores == sorted(scores, reverse=True)

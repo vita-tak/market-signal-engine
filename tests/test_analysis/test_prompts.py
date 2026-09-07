@@ -97,3 +97,16 @@ def test_user_prompt_renders_timestamps_as_utc() -> None:
     )
 
     assert "Published: 2026-09-07T06:01:00Z" in prompt
+
+
+def test_user_prompt_tells_the_model_the_articles_are_ordered_by_relevance() -> None:
+    """The order is a fact about the list, so the model is told what it means."""
+    prompt = build_user_prompt(
+        ticker="CRWD",
+        articles=[_article(1), _article(2)],
+        quote=QUOTE,
+        market_context=MARKET_CONTEXT,
+    )
+
+    assert "most relevant first" in prompt
+    assert "newest first" not in prompt

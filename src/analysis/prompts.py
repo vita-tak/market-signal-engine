@@ -47,7 +47,7 @@ _HEADER_TEMPLATE = """Ticker: {ticker}
 Price: {price:.2f} ({change_percent:+.2f}% on {latest_trading_day})
 Market: {market_context}
 
-{count} article(s) retrieved for this ticker, newest first:"""
+{count} article(s) retrieved for this ticker, most relevant first:"""
 
 _ARTICLE_TEMPLATE = """
 [{index}] {title}
@@ -68,7 +68,7 @@ def build_user_prompt(
 
     Args:
         ticker: The ticker being analysed.
-        articles: News in the lookback window, newest first.
+        articles: News in the lookback window, most relevant first.
         quote: The ticker's own price snapshot.
         market_context: The market backdrop line, already formatted.
 

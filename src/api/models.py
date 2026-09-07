@@ -13,6 +13,9 @@ class NewsArticle:
     published_at: datetime
     summary: str
     source: str
+    # How relevant Alpha Vantage judges this article to be for the ticker it
+    # was fetched for. 0.0 when the feed carries no score for that ticker.
+    relevance_score: float = 0.0
 
 
 @dataclass(frozen=True, slots=True)

@@ -46,7 +46,8 @@ def analyze(
 
     Args:
         ticker: The ticker being analysed.
-        articles: News in the lookback window, newest first. May be empty.
+        articles: News in the lookback window, most relevant first. May be
+            empty.
         quote: The ticker's own price snapshot.
         market: The market proxy's price snapshot.
         generator: What produces the analysis when there is news to judge.
