@@ -6,7 +6,7 @@ This is not a trading bot. It does not execute trades.
 
 ## How it works
 
-Each morning, the system fetches the last 24 hours of news and current price for each ticker via Alpha Vantage. Claude analyzes the news and determines whether a concrete, identifiable event justifies a signal. The result is appended as a structured JSONL record to `output/signals.jsonl`.
+The system fetches the last 24 hours of news and current price for each ticker via Alpha Vantage. Claude analyzes the news and determines whether a concrete, identifiable event justifies a signal. The result is appended as a structured JSONL record to `output/signals.jsonl`.
 
 A signal is only valid if it is driven by a specific event, not general sentiment. On quiet days the system returns HOLD with LOW confidence rather than inventing a catalyst.
 
