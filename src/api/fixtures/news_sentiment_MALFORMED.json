@@ -1,0 +1,10 @@
+{
+  "items": "1",
+  "feed": [
+    {
+      "title": "Headline with no link and no timestamp",
+      "summary": "This entry is deliberately incomplete.",
+      "source": "Example Newswire"
+    }
+  ]
+}

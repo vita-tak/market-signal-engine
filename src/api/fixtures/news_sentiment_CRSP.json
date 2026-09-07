@@ -1,0 +1,36 @@
+{
+  "items": "1",
+  "sentiment_score_definition": "x <= -0.35: Bearish; -0.35 < x <= -0.15: Somewhat-Bearish; -0.15 < x < 0.15: Neutral; 0.15 <= x < 0.35: Somewhat-Bullish; x >= 0.35: Bullish",
+  "relevance_score_definition": "0 < x <= 1, with a higher score indicating higher relevance.",
+  "feed": [
+    {
+      "title": "CRISPR Therapeutics reports updated data from its in vivo editing programme",
+      "url": "https://www.example.com/crsp-invivo-update",
+      "time_published": "20260907T053000",
+      "authors": [
+        "Dana Wire"
+      ],
+      "summary": "The company released updated interim data from an early stage in vivo editing study. Enrolment continues and no dosing changes were announced. Analysts called the readout directionally positive but early.",
+      "banner_image": "https://www.example.com/img/crsp.png",
+      "source": "Example Newswire",
+      "category_within_source": "n/a",
+      "source_domain": "www.example.com",
+      "topics": [
+        {
+          "topic": "Life Sciences",
+          "relevance_score": "0.83"
+        }
+      ],
+      "overall_sentiment_score": 0.204,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "CRSP",
+          "relevance_score": "0.879",
+          "ticker_sentiment_score": "0.221",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    }
+  ]
+}

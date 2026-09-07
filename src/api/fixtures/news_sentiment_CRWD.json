@@ -1,0 +1,94 @@
+{
+  "items": "3",
+  "sentiment_score_definition": "x <= -0.35: Bearish; -0.35 < x <= -0.15: Somewhat-Bearish; -0.15 < x < 0.15: Neutral; 0.15 <= x < 0.35: Somewhat-Bullish; x >= 0.35: Bullish",
+  "relevance_score_definition": "0 < x <= 1, with a higher score indicating higher relevance.",
+  "feed": [
+    {
+      "title": "CrowdStrike beats Q2 estimates and raises full-year guidance",
+      "url": "https://www.example.com/crwd-q2-beat",
+      "time_published": "20260907T060000",
+      "authors": [
+        "Jane Reporter"
+      ],
+      "summary": "CrowdStrike reported Q2 revenue of 1.21 billion dollars against consensus of 1.16 billion, and lifted full-year guidance on the back of accelerating ARR growth.",
+      "banner_image": "https://www.example.com/img/crwd.png",
+      "source": "Example Newswire",
+      "category_within_source": "n/a",
+      "source_domain": "www.example.com",
+      "topics": [
+        {
+          "topic": "Earnings",
+          "relevance_score": "0.95"
+        }
+      ],
+      "overall_sentiment_score": 0.412,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "CRWD",
+          "relevance_score": "0.951",
+          "ticker_sentiment_score": "0.446",
+          "ticker_sentiment_label": "Bullish"
+        }
+      ]
+    },
+    {
+      "title": "CrowdStrike ARR crosses 5 billion dollars, management points to cloud security demand",
+      "url": "https://www.marketexample.com/crwd-arr-milestone",
+      "time_published": "20260907T063000",
+      "authors": [
+        "Sam Analyst"
+      ],
+      "summary": "Annual recurring revenue passed 5 billion dollars in the quarter. Management attributed the beat to enterprise cloud security consolidation and a larger average deal size.",
+      "banner_image": "https://www.marketexample.com/img/crwd.png",
+      "source": "Market Example",
+      "category_within_source": "n/a",
+      "source_domain": "www.marketexample.com",
+      "topics": [
+        {
+          "topic": "Earnings",
+          "relevance_score": "0.88"
+        }
+      ],
+      "overall_sentiment_score": 0.383,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "CRWD",
+          "relevance_score": "0.902",
+          "ticker_sentiment_score": "0.401",
+          "ticker_sentiment_label": "Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Analysts lift CrowdStrike price targets after guidance raise",
+      "url": "https://www.financeexample.com/crwd-target-hikes",
+      "time_published": "20260907T071500",
+      "authors": [
+        "Ari Desk"
+      ],
+      "summary": "At least four brokerages raised their price targets following the print, citing the guidance raise rather than a one-off revenue item.",
+      "banner_image": "https://www.financeexample.com/img/crwd.png",
+      "source": "Finance Example",
+      "category_within_source": "n/a",
+      "source_domain": "www.financeexample.com",
+      "topics": [
+        {
+          "topic": "Financial Markets",
+          "relevance_score": "0.71"
+        }
+      ],
+      "overall_sentiment_score": 0.298,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "CRWD",
+          "relevance_score": "0.844",
+          "ticker_sentiment_score": "0.331",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Tooling configuration only. This project is not packaged, so there is no
+# [project] table here.
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["config.py", "main.py", "src", "tests"]
