@@ -2,6 +2,7 @@
 
 import io
 import json
+from collections.abc import Callable
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -14,9 +15,13 @@ from src.analysis.errors import LLMRequestError
 from src.analysis.llm import SignalGenerator, StubGenerator
 from src.api.client import FixtureSource, ResponseSource
 from src.api.errors import RateLimitError
-from tests.doubles import FailingGenerator, SpySource
+from tests.doubles import FailingGenerator, SpySleep, SpySource
 
 RUN_TIMESTAMP = datetime(2026, 9, 7, 8, 0, tzinfo=UTC)
+
+
+def _no_delay(seconds: float) -> None:
+    """A no-op sleep so the suite is not slowed down by the real delay."""
 
 
 def _run(
@@ -24,6 +29,7 @@ def _run(
     *,
     source: ResponseSource | None = None,
     generator: SignalGenerator | None = None,
+    sleep: Callable[[float], None] = _no_delay,
 ) -> tuple[int, str, str]:
     """Run the pipeline, returning the exit code and both streams."""
     stdout, stderr = io.StringIO(), io.StringIO()
@@ -34,6 +40,7 @@ def _run(
         output_path=path,
         stdout=stdout,
         stderr=stderr,
+        sleep=sleep,
     )
     return code, stdout.getvalue(), stderr.getvalue()
 
@@ -83,6 +90,16 @@ def test_a_run_stays_within_the_daily_call_budget(tmp_path: Path) -> None:
     _run(tmp_path / "signals.jsonl", source=source)
 
     assert len(source.calls) == 2 * len(config.WATCHLIST) + 1
+
+
+def test_a_delay_separates_every_alpha_vantage_call(tmp_path: Path) -> None:
+    """The free tier allows 1 request per second; calls must be paced."""
+    source = SpySource(FixtureSource(config.FIXTURES_DIR))
+    sleep = SpySleep()
+
+    _run(tmp_path / "signals.jsonl", source=source, sleep=sleep)
+
+    assert sleep.delays == [config.ALPHAVANTAGE_DELAY_SECONDS] * (len(source.calls) - 1)
 
 
 def test_a_failing_ticker_does_not_stop_the_others(tmp_path: Path) -> None:

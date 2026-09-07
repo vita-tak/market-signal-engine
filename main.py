@@ -5,6 +5,8 @@ business logic lives in src/api/, src/analysis/ and src/output/.
 """
 
 import sys
+import time
+from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import TextIO
@@ -33,6 +35,7 @@ def run(
     output_path: Path,
     stdout: TextIO = sys.stdout,
     stderr: TextIO = sys.stderr,
+    sleep: Callable[[float], None] = time.sleep,
 ) -> int:
     """Analyse every ticker on the watchlist and log one record each.
 
@@ -47,15 +50,28 @@ def run(
         output_path: The JSONL log to append to.
         stdout: Stream for the per-ticker results and the summary.
         stderr: Stream for failures.
+        sleep: Delay function called between Alpha Vantage calls, so the free
+            tier's 1 request per second limit is not exceeded.
 
     Returns:
         0 if every ticker was logged, 1 otherwise.
     """
     since = run_timestamp - timedelta(days=config.NEWS_DAYS_BACK)
 
+    # False on the very first Alpha Vantage call of the run, so there is no
+    # delay before it. Every call after that is preceded by a pause.
+    made_a_call = False
+
+    def paced_call() -> None:
+        nonlocal made_a_call
+        if made_a_call:
+            sleep(config.ALPHAVANTAGE_DELAY_SECONDS)
+        made_a_call = True
+
     # Fetched once, before any ticker. Every record needs the market baseline,
     # so there is nothing worth writing if this fails.
     try:
+        paced_call()
         market = fetch_quote(config.MARKET_PROXY, source=source)
     except AlphaVantageError as error:
         print(
@@ -68,9 +84,11 @@ def run(
     failed = 0
     for ticker in config.WATCHLIST:
         try:
+            paced_call()
             articles = fetch_news(
                 ticker, source=source, since=since, limit=config.NEWS_LIMIT
             )
+            paced_call()
             quote = fetch_quote(ticker, source=source)
             analysis = analyze(
                 ticker,

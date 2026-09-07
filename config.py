@@ -75,6 +75,9 @@ QUOTE_FUNCTION = "GLOBAL_QUOTE"
 NEWS_SORT = "LATEST"
 REQUEST_TIMEOUT_SECONDS = 30.0
 
+# Free tier allows 1 request per second. Callers must pace their calls.
+ALPHAVANTAGE_DELAY_SECONDS = 1.2
+
 # Timestamp format of the time_published field in a NEWS_SENTIMENT response
 AV_TIME_PUBLISHED_FORMAT = "%Y%m%dT%H%M%S"
 # Timestamp format of the time_from request parameter

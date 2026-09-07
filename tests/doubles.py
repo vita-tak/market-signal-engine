@@ -67,3 +67,13 @@ class FailingGenerator:
 
     def generate(self, *, system: str, user: str) -> Any:
         raise self._error
+
+
+class SpySleep:
+    """A stand-in for time.sleep that records delays instead of waiting."""
+
+    def __init__(self) -> None:
+        self.delays: list[float] = []
+
+    def __call__(self, seconds: float) -> None:
+        self.delays.append(seconds)
