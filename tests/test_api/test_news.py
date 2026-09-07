@@ -92,7 +92,7 @@ def test_fetch_news_truncates_the_feed_to_the_limit() -> None:
     ]
 
 
-def test_fetch_news_requests_the_news_window_from_alpha_vantage() -> None:
+def test_fetch_news_requests_the_ticker_from_alpha_vantage() -> None:
     source = FakeSource({"items": "0", "feed": []})
 
     fetch_news("CRWD", source=source, since=SINCE, limit=10)
@@ -102,7 +102,6 @@ def test_fetch_news_requests_the_news_window_from_alpha_vantage() -> None:
             "NEWS_SENTIMENT",
             {
                 "tickers": "CRWD",
-                "time_from": "20260906T0800",
                 "limit": "10",
                 "sort": "LATEST",
             },

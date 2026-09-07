@@ -32,7 +32,8 @@ def fetch_news(
     Args:
         ticker: Ticker symbol to fetch news for.
         source: Where to read the Alpha Vantage payload from.
-        since: Start of the news window, sent as the time_from parameter.
+        since: Start of the news window. Currently unused in the request
+            itself; see the note above the source.get call.
         limit: Maximum number of articles to return.
 
     Returns:
@@ -42,11 +43,13 @@ def fetch_news(
     Raises:
         AlphaVantageError: If the payload reports a failure or is malformed.
     """
+    # time_from is temporarily omitted: the free Alpha Vantage tier does not
+    # return news within a 24 hour window, so the filter is dropped to let
+    # real end to end runs see the most recent articles it does return.
     payload = source.get(
         config.NEWS_FUNCTION,
         {
             "tickers": ticker,
-            "time_from": since.strftime(config.AV_TIME_FROM_FORMAT),
             "limit": str(limit),
             "sort": config.NEWS_SORT,
         },

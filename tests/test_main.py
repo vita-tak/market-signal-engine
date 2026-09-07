@@ -212,6 +212,5 @@ def test_a_run_after_a_closure_asks_for_the_whole_window(tmp_path: Path) -> None
     ]
     assert len(news) == len(config.WATCHLIST)
     for params in news:
-        assert params["time_from"] == "20260904T0800"
         assert params["limit"] == "30"
     assert {record["lookback_days"] for record in _records(path)} == {3}

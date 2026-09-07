@@ -1,0 +1,65 @@
+{
+  "items": "2",
+  "sentiment_score_definition": "x <= -0.35: Bearish; -0.35 < x <= -0.15: Somewhat-Bearish; -0.15 < x < 0.15: Neutral; 0.15 <= x < 0.35: Somewhat-Bullish; x >= 0.35: Bullish",
+  "relevance_score_definition": "0 < x <= 1, with a higher score indicating higher relevance.",
+  "feed": [
+    {
+      "title": "Energy services sector roundup for the week",
+      "url": "https://www.example.com/energy-services-roundup",
+      "time_published": "20260906T220000",
+      "authors": [
+        "Wire Desk"
+      ],
+      "summary": "A weekly summary of energy services names. Archrock is mentioned once in a list of midstream compression providers, with no company specific development reported.",
+      "banner_image": "https://www.example.com/img/aroc.png",
+      "source": "Example Newswire",
+      "category_within_source": "n/a",
+      "source_domain": "www.example.com",
+      "topics": [
+        {
+          "topic": "Energy & Transportation",
+          "relevance_score": "0.31"
+        }
+      ],
+      "overall_sentiment_score": 0.041,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "ALNY",
+          "relevance_score": "0.118",
+          "ticker_sentiment_score": "0.052",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Ten dividend names screened on yield and payout ratio",
+      "url": "https://www.financeexample.com/dividend-screen-september",
+      "time_published": "20260907T040000",
+      "authors": [
+        "Screen Bot"
+      ],
+      "summary": "A screening article listing dividend paying companies by yield. Archrock appears in the table. No new company information is disclosed.",
+      "banner_image": "https://www.financeexample.com/img/aroc.png",
+      "source": "Finance Example",
+      "category_within_source": "n/a",
+      "source_domain": "www.financeexample.com",
+      "topics": [
+        {
+          "topic": "Financial Markets",
+          "relevance_score": "0.24"
+        }
+      ],
+      "overall_sentiment_score": 0.088,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "ALNY",
+          "relevance_score": "0.094",
+          "ticker_sentiment_score": "0.061",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    }
+  ]
+}
