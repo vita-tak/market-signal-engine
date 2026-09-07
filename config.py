@@ -59,7 +59,7 @@ ALPHAVANTAGE_API_KEY = os.getenv("ALPHAVANTAGE_API_KEY")
 
 # Tickers analysed on every run
 WATCHLIST = [
-    "AROC",
+    "ALNY",
     "CRWD",
     "CRSP",
     "IRDM",
