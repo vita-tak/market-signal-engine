@@ -20,6 +20,7 @@ def build_record(
     articles: Sequence[NewsArticle],
     quote: Quote,
     market: Quote,
+    lookback_days: int,
 ) -> dict[str, Any]:
     """Assemble one log entry.
 
@@ -31,6 +32,9 @@ def build_record(
             record's sources, so no URL can come from the model.
         quote: The ticker's price snapshot at signal time.
         market: The market proxy's snapshot, kept as the evaluation baseline.
+        lookback_days: How many days of news the signal was judged on. The
+            window widens after a weekend or a market holiday, so it is
+            recorded rather than assumed to be one day.
 
     Returns:
         A dict of plain JSON values, in the documented key order.
@@ -51,6 +55,7 @@ def build_record(
         "market_context": analysis.market_context,
         "price_at_signal": quote.price,
         "market_price_at_signal": market.price,
+        "lookback_days": lookback_days,
         # Filled in by hand after 7 and 30 days, not by this run.
         "evaluation": {
             "price_7d": None,

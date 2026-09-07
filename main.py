@@ -7,7 +7,7 @@ business logic lives in src/api/, src/analysis/ and src/output/.
 import sys
 import time
 from collections.abc import Callable
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TextIO
 
@@ -19,6 +19,7 @@ from src.analysis.llm import SignalGenerator, build_generator
 from src.api.client import ResponseSource, build_source
 from src.api.errors import AlphaVantageError
 from src.api.errors import MissingApiKeyError as MissingDataApiKeyError
+from src.api.market_calendar import news_window
 from src.api.news import fetch_news
 from src.api.prices import fetch_quote
 from src.output.signal_log import append_record, build_record
@@ -56,7 +57,9 @@ def run(
     Returns:
         0 if every ticker was logged, 1 otherwise.
     """
-    since = run_timestamp - timedelta(days=config.NEWS_DAYS_BACK)
+    # Widens after a weekend or a market holiday, so the first run back
+    # reaches every day the market was shut.
+    window = news_window(run_timestamp)
 
     # False on the very first Alpha Vantage call of the run, so there is no
     # delay before it. Every call after that is preceded by a pause.
@@ -86,7 +89,10 @@ def run(
         try:
             paced_call()
             articles = fetch_news(
-                ticker, source=source, since=since, limit=config.NEWS_LIMIT
+                ticker,
+                source=source,
+                since=window.start,
+                limit=window.limit,
             )
             paced_call()
             quote = fetch_quote(ticker, source=source)
@@ -104,6 +110,7 @@ def run(
                 articles=articles,
                 quote=quote,
                 market=market,
+                lookback_days=window.days,
             )
             append_record(record, path=output_path)
         except (AlphaVantageError, AnalysisError, OSError) as error:

@@ -194,3 +194,24 @@ def test_main_reports_a_missing_key_without_a_traceback(
 
     assert code == 1
     assert "ALPHAVANTAGE_API_KEY" in capsys.readouterr().err
+
+
+def test_a_run_after_a_closure_asks_for_the_whole_window(tmp_path: Path) -> None:
+    """RUN_TIMESTAMP is Labor Day, 2026-09-07. The market was shut Saturday,
+    Sunday and Monday, so the window has to reach back to Friday rather than
+    see only Sunday, and the limit scales so Friday is not crowded out."""
+    path = tmp_path / "signals.jsonl"
+    source = SpySource(FixtureSource(config.FIXTURES_DIR))
+
+    _run(path, source=source)
+
+    news = [
+        params
+        for function, params in source.requests
+        if function == config.NEWS_FUNCTION
+    ]
+    assert len(news) == len(config.WATCHLIST)
+    for params in news:
+        assert params["time_from"] == "20260904T0800"
+        assert params["limit"] == "30"
+    assert {record["lookback_days"] for record in _records(path)} == {3}

@@ -48,10 +48,12 @@ class SpySource:
         self._inner = inner
         self._failures = dict(failures or {})
         self.calls: list[tuple[str, str]] = []
+        self.requests: list[tuple[str, dict[str, str]]] = []
 
     def get(self, function: str, params: Mapping[str, str]) -> dict[str, Any]:
         symbol = params.get("tickers") or params.get("symbol") or ""
         self.calls.append((function, symbol))
+        self.requests.append((function, dict(params)))
         error = self._failures.get((function, symbol))
         if error is not None:
             raise error

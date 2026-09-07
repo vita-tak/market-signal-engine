@@ -39,7 +39,7 @@ def test_every_watchlist_ticker_parses_end_to_end(
     source: FixtureSource, ticker: str
 ) -> None:
     articles = fetch_news(
-        ticker, source=source, since=SINCE, limit=config.NEWS_LIMIT
+        ticker, source=source, since=SINCE, limit=config.NEWS_LIMIT_PER_DAY
     )
     quote = fetch_quote(ticker, source=source)
 

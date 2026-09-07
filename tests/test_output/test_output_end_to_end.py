@@ -13,17 +13,21 @@ import config
 from src.analysis.analyzer import analyze
 from src.analysis.llm import StubGenerator
 from src.api.client import FixtureSource
+from src.api.market_calendar import news_window
 from src.api.news import fetch_news
 from src.api.prices import fetch_quote
 from src.output.signal_log import append_record, build_record
 
 RUN_TIMESTAMP = datetime(2026, 9, 7, 8, 0, tzinfo=UTC)
-SINCE = datetime(2026, 9, 6, 8, 0, tzinfo=UTC)
+WINDOW = news_window(RUN_TIMESTAMP)
+SINCE = WINDOW.start
 SOURCE = FixtureSource(config.FIXTURES_DIR)
 
 
 def _build(ticker: str) -> dict[str, object]:
-    articles = fetch_news(ticker, source=SOURCE, since=SINCE, limit=config.NEWS_LIMIT)
+    articles = fetch_news(
+        ticker, source=SOURCE, since=SINCE, limit=WINDOW.limit
+    )
     quote = fetch_quote(ticker, source=SOURCE)
     market = fetch_quote(config.MARKET_PROXY, source=SOURCE)
     analysis = analyze(
@@ -40,11 +44,14 @@ def _build(ticker: str) -> dict[str, object]:
         articles=articles,
         quote=quote,
         market=market,
+        lookback_days=WINDOW.days,
     )
 
 
 def test_sources_are_exactly_the_fetched_articles() -> None:
-    articles = fetch_news("CRWD", source=SOURCE, since=SINCE, limit=config.NEWS_LIMIT)
+    articles = fetch_news(
+        "CRWD", source=SOURCE, since=SINCE, limit=WINDOW.limit
+    )
 
     record = _build("CRWD")
 

@@ -55,6 +55,7 @@ def _record(**overrides: object) -> dict[str, object]:
         "articles": [ARTICLE],
         "quote": QUOTE,
         "market": MARKET,
+        "lookback_days": 3,
     }
     kwargs.update(overrides)
     return build_record(**kwargs)  # type: ignore[arg-type]
@@ -73,6 +74,7 @@ def test_record_has_the_documented_keys_in_order() -> None:
         "market_context",
         "price_at_signal",
         "market_price_at_signal",
+        "lookback_days",
         "evaluation",
     ]
 
@@ -90,6 +92,15 @@ def test_record_carries_the_analysis_as_plain_json_values() -> None:
     assert record["reasoning"] == "Corroborated by three sources."
     assert record["news_summary"] == "Revenue came in above consensus."
     assert record["market_context"] == "SPY 645.20, +0.83% on 2026-09-05"
+
+
+def test_record_carries_the_lookback_window_it_was_built_from() -> None:
+    """The evaluation reads this log 30 days later, when the window a signal
+    was judged on is not otherwise recoverable from the file."""
+    record = _record(lookback_days=4)
+
+    assert record["lookback_days"] == 4
+    assert type(record["lookback_days"]) is int
 
 
 def test_record_carries_both_price_baselines() -> None:

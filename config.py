@@ -65,8 +65,18 @@ WATCHLIST = [
     "IRDM",
 ]
 
-NEWS_LIMIT = 10
+# Base lookback for an ordinary trading day. src/api/market_calendar.py
+# adds one day for every market closure immediately before a run.
 NEWS_DAYS_BACK = 1
+# Max articles per day of the news window, so a longer window asks for
+# proportionally more news rather than only the newest headlines.
+NEWS_LIMIT_PER_DAY = 10
+# Bounds the backward scan for the last trading day. The rule never
+# produces more than 4, so reaching this means the holiday table is wrong.
+MAX_LOOKBACK_DAYS = 10
+# The market keeps its own calendar, so the run timestamp is read in this
+# zone before its calendar day decides the lookback.
+MARKET_TIMEZONE = "America/New_York"
 
 # Alpha Vantage
 ALPHAVANTAGE_BASE_URL = "https://www.alphavantage.co/query"

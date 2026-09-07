@@ -28,7 +28,9 @@ ANALYSIS = SignalAnalysis(
 
 
 def test_a_corroborated_event_reaches_the_model_with_every_source() -> None:
-    articles = fetch_news("CRWD", source=SOURCE, since=SINCE, limit=config.NEWS_LIMIT)
+    articles = fetch_news(
+        "CRWD", source=SOURCE, since=SINCE, limit=config.NEWS_LIMIT_PER_DAY
+    )
     quote = fetch_quote("CRWD", source=SOURCE)
     market = fetch_quote(config.MARKET_PROXY, source=SOURCE)
     generator = RecordingGenerator(ANALYSIS)
@@ -50,7 +52,9 @@ def test_a_corroborated_event_reaches_the_model_with_every_source() -> None:
 
 
 def test_a_quiet_ticker_never_reaches_the_model() -> None:
-    articles = fetch_news("IRDM", source=SOURCE, since=SINCE, limit=config.NEWS_LIMIT)
+    articles = fetch_news(
+        "IRDM", source=SOURCE, since=SINCE, limit=config.NEWS_LIMIT_PER_DAY
+    )
     quote = fetch_quote("IRDM", source=SOURCE)
     market = fetch_quote(config.MARKET_PROXY, source=SOURCE)
 
@@ -73,7 +77,7 @@ def test_the_offline_stub_produces_a_valid_analysis_for_every_ticker() -> None:
 
     for ticker in config.WATCHLIST:
         articles = fetch_news(
-            ticker, source=SOURCE, since=SINCE, limit=config.NEWS_LIMIT
+            ticker, source=SOURCE, since=SINCE, limit=config.NEWS_LIMIT_PER_DAY
         )
         quote = fetch_quote(ticker, source=SOURCE)
 
